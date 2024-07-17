@@ -5,7 +5,7 @@ import streamlit as st
 
 # Load the label encoders and scalers
 def load_objects():
-    global label_encoders, label_encoders_3, scalers, scaler, log_reg_model
+    global label_encoders, scalers, scaler, log_reg_model
     
     label_encoders = {}
     label_encoders_path = 'label_encoders'
@@ -15,13 +15,13 @@ def load_objects():
             column_name = file_name.replace('.pkl', '')
             label_encoders[column_name] = joblib.load(path)
 
-    label_encoders_3 = {}
-    label_encoders_3_path = 'label_encoders_3'
-    for file_name in os.listdir(label_encoders_3_path):
-        if file_name.endswith('.pkl'):
-            path = os.path.join(label_encoders_3_path, file_name)
-            column_name = file_name.replace('.pkl', '')
-            label_encoders_3[column_name] = joblib.load(path)
+    # label_encoders_3 = {}
+    # label_encoders_3_path = 'label_encoders_3'
+    # for file_name in os.listdir(label_encoders_3_path):
+    #     if file_name.endswith('.pkl'):
+    #         path = os.path.join(label_encoders_3_path, file_name)
+    #         column_name = file_name.replace('.pkl', '')
+    #         label_encoders_3[column_name] = joblib.load(path)
 
     scalers = {}
     scalers_path = 'scalers'
