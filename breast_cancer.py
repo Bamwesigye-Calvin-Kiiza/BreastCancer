@@ -34,7 +34,7 @@ def load_objects():
     scaler_path = 'scalers/sc.pkl'
     scaler = joblib.load(scaler_path)
     
-    model_path = 'logistic_regression_model_2.pkl'
+    model_path = 'logistic_regression_model.pkl'
     log_reg_model = joblib.load(model_path)
 
 # Define the function to make predictions
@@ -51,11 +51,6 @@ def predict(input_data):
                 unknown_labels = [label for label in new_labels if label not in known_labels]
                 if unknown_labels:
                     ...
-                    # st.error(f"Warning: Unknown labels found for column '{column}': {unknown_labels}")
-                    # if column in label_encoders_3:
-                    #     new_data_df[column] = label_encoders_3[column].transform(new_data_df[column])
-                    # else:
-                    #     raise ValueError(f"Column '{column}' has unknown labels and no backup encoder found.")
                 else:
                     new_data_df[column] = encoder.transform(new_data_df[column])
             except (TypeError, ValueError) as e:
@@ -63,9 +58,12 @@ def predict(input_data):
                 return None
 
     # Apply scalers
-    new_data_df['overall_survival_months'] = scalers['MinMaxScaler()'].transform(new_data_df[['overall_survival_months']])
+    new_data_df['overall_survival_months'] = scalers['MinMaxScaler()'].fit_transform(new_data_df[['overall_survival_months']])
     new_data_df['death_from_cancer'] = new_data_df['death_from_cancer'].astype(int)
-    
+    new_data_df['jak1'] = scalers['sc'].fit_transform(new_data_df[['jak1']])
+    new_data_df['gsk3b'] = scalers['sc'].fit_transform(new_data_df[['gsk3b']])
+    new_data_df['kmt2c'] = scalers['sc'].fit_transform(new_data_df[['kmt2c']])
+
     # Make predictions
     new_data_predictions = log_reg_model.predict(new_data_df)
     new_data_probabilities = log_reg_model.predict_proba(new_data_df)[:, 1]
@@ -92,7 +90,9 @@ type_of_breast_surgery = st.selectbox("Type of Breast Surgery", ['BREAST CONSERV
 cancer_type_detailed = st.selectbox("Cancer Type Detailed", ['Breast Invasive Ductal Carcinoma','Breast Invasive Lobular Carcinoma','Breast Invasive Mixed Mucinous Carcinoma','Breast Mixed Ductal and Lobular Carcinoma','Metaplastic Breast Cancer'])
 death_from_cancer = st.radio("Death from Cancer", [0, 1])
 radio_therapy = st.radio("Radio Therapy", [0, 1])
-
+jak1 = st.number_input("jak1")
+gsk3b = st.number_input("gsk3b")
+kmt2c = st.number_input("kmt2c")
 # Prepare the input data
 input_data = {
     'age_at_diagnosis': age_at_diagnosis,
@@ -107,7 +107,10 @@ input_data = {
     'type_of_breast_surgery': type_of_breast_surgery,
     'cancer_type_detailed': cancer_type_detailed,
     'death_from_cancer': death_from_cancer,
-    'radio_therapy': radio_therapy
+    'radio_therapy': radio_therapy,
+    'jak1':jak1,
+    'gsk3b':gsk3b,
+    'kmt2c':kmt2c
 }
 
 if st.button("Predict Survival"):
