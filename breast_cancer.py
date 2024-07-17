@@ -50,11 +50,12 @@ def predict(input_data):
                 known_labels = encoder.classes_
                 unknown_labels = [label for label in new_labels if label not in known_labels]
                 if unknown_labels:
-                    st.error(f"Warning: Unknown labels found for column '{column}': {unknown_labels}")
-                    if column in label_encoders_3:
-                        new_data_df[column] = label_encoders_3[column].transform(new_data_df[column])
-                    else:
-                        raise ValueError(f"Column '{column}' has unknown labels and no backup encoder found.")
+                    ...
+                    # st.error(f"Warning: Unknown labels found for column '{column}': {unknown_labels}")
+                    # if column in label_encoders_3:
+                    #     new_data_df[column] = label_encoders_3[column].transform(new_data_df[column])
+                    # else:
+                    #     raise ValueError(f"Column '{column}' has unknown labels and no backup encoder found.")
                 else:
                     new_data_df[column] = encoder.transform(new_data_df[column])
             except (TypeError, ValueError) as e:
