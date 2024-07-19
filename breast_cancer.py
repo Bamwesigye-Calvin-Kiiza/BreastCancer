@@ -15,13 +15,6 @@ def load_objects():
             column_name = file_name.replace('.pkl', '')
             label_encoders[column_name] = joblib.load(path)
 
-    # label_encoders_3 = {}
-    # label_encoders_3_path = 'label_encoders_3'
-    # for file_name in os.listdir(label_encoders_3_path):
-    #     if file_name.endswith('.pkl'):
-    #         path = os.path.join(label_encoders_3_path, file_name)
-    #         column_name = file_name.replace('.pkl', '')
-    #         label_encoders_3[column_name] = joblib.load(path)
 
     scalers = {}
     scalers_path = 'scalers'
@@ -116,5 +109,5 @@ input_data = {
 if st.button("Predict Survival"):
     prediction, probability = predict(input_data)
     if prediction is not None:
-        st.write(f"Survival Prediction: {'Yes' if prediction == 0 else 'No'}")
+        st.write(f"Survival Prediction: {'Yes' if prediction == 1 else 'No'}")
         st.write(f"Survival Probability: {probability * 100:.10f}%")
