@@ -73,7 +73,7 @@ st.title("Breast Cancer Survival Prediction")
 age_at_diagnosis = st.number_input("Age at Diagnosis", min_value=0.0, value=43.65, step=0.1)
 integrative_cluster = st.selectbox("Integrative Cluster", ['4ER+','4ER-','1','2','3','5','6','7','8','9','10'])
 oncotree_code = st.selectbox("Oncotree Code", ['IDC','ILC','IMMC','MBC','MDLC'])
-overall_survival_months = st.number_input("Overall Survival Months", min_value=0.0, value=0.0, step=0.1)
+overall_survival_months = st.number_input("Overall Survival Months", min_value=0.0, value=48.5, step=0.1)
 tumor_other_histologic_subtype = st.selectbox("Tumor Other Histologic Subtype", ['Ductal/NST','Lobular','Medullary','Metaplastic','Mixed','Mucinous','Other','Tubular/ cribriform'])
 inferred_menopausal_state = st.selectbox("Inferred Menopausal State", ['Pre','Post'])
 pam50_claudin_low_subtype = st.selectbox("PAM50+ Claudin-Low Subtype", ['LumA','Basal','Her2','LumA','LumB','NC','Normal','claudin-low'])
@@ -83,9 +83,9 @@ type_of_breast_surgery = st.selectbox("Type of Breast Surgery", ['BREAST CONSERV
 cancer_type_detailed = st.selectbox("Cancer Type Detailed", ['Breast Invasive Ductal Carcinoma','Breast Invasive Lobular Carcinoma','Breast Invasive Mixed Mucinous Carcinoma','Breast Mixed Ductal and Lobular Carcinoma','Metaplastic Breast Cancer'])
 death_from_cancer = st.radio("Death from Cancer", [0, 1])
 radio_therapy = st.radio("Radio Therapy", [0, 1])
-jak1 = st.number_input("jak1")
-gsk3b = st.number_input("gsk3b")
-kmt2c = st.number_input("kmt2c")
+jak1 = st.number_input("jak1",value=0.9)
+gsk3b = st.number_input("gsk3b",value=2.1)
+kmt2c = st.number_input("kmt2c",value=0.1)
 # Prepare the input data
 input_data = {
     'age_at_diagnosis': age_at_diagnosis,
